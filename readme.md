@@ -21,3 +21,4 @@ Then lastly is to check that your listening to the right port.
 Tips to use
 Always restart the server incase you change anything
 Try one function at a time
+Uml diagram
