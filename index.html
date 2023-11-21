@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+ 
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+<body>
+    <nav>
+        <a href="temp.html">Temp </a> 
+    </nav>
+    <form id ="userForm">
+    <header>
+        <h1>Trivia Micro service </h1>
+        <h2><em style ="color: blue;"Get ready to set up your profile></em></h2>
+        <h2>Would you like to take control of your life?</h2>
+        <h3>If so please follow through with these  steps</h3>
+
+    </header>
+        
+    <table>
+        
+        
+        <tr>
+            <th>Category:</th>
+            <td><input type="button" value = "Music" id ="MusicBtn"></td>
+        </tr> 
+        <tr>
+            <th>Category:</th>
+            <td><input type="button" value = "geography" id ="GeographyBtn"></td>
+            
+        </tr>
+        <tr>
+            <th>Category:</th>
+            <td><input type="button" value = "history" id ="HistoryBtn"></td>
+            
+        </tr>
+        
+        <tr>
+            <th>Category:</th>
+            <td><input type="button" value = "movies" id ="MoviesBtn"></td>
+            
+        </tr>
+        
+            <tr>
+            
+            <td><input type = "button" value = "Submit" onclick = "submitForm()">This submits your data to the server</td>
+            <td><input type = "button" value = "Undo" onclick = "resetForm()">This literally removes everything</td>
+            </tr>
+            
+              
+       
+        </table>
+       
+    </form>
+    <p id = "userquestion"></p>
+    <ul id = "answers"></ul>
+    <input type ="text" id="useranswer" placeholder="Enter your answer for the question" style = "display: none;">
+    <button onclick = "submitanswer()" id="submitanswerBtn" style="display:none;">Submit</button>
+    <p id = "correctAnswer"></p>
+       
+ <script>
+    addEventListener("DOMContentLoaded", function() {
+        var geographyBtn = document.querySelector("#GeographyBtn");
+        if(geographyBtn){
+        geographyBtn.addEventListener("click", Geographyquestions);  
+        }
+   
+ });
+ // wait for the html content to be loaded.
+ addEventListener("DOMContentLoaded",function(){
+    var musicBtn = document.querySelector("#MusicBtn");
+    if (musicBtn){
+        musicBtn.addEventListener("click", Musicquestions);
+    }
+ });
+ addEventListener("DOMContentLoaded",function(){
+    var historyBtn = document.querySelector("#HistoryBtn");
+    if (historyBtn){
+        historyBtn.addEventListener("click", Historyquestions);
+    }
+ });
+ addEventListener("DOMContentLoaded",function(){
+    var scienceBtn = document.querySelector("#ScienceBtn");
+    if (scienceBtn){
+        scienceBtn.addEventListener("click", Sciencequestions);
+    }
+ });
+ addEventListener("DOMContentLoaded",function(){
+    var moviesBtn = document.querySelector("#MoviesBtn");
+    if (moviesBtn){
+        moviesBtn.addEventListener("click", Moviequestions);
+    }
+ });
+    var questiondata;
+    
+
+ ///var geography = document.getElementById("geography").value;
+ /**
+  * function that creates the object and assigns the required fields
+  * I got this function in our zy book link
+  * it uses the add song function to await a promise from the api and is waiting to return the set promise and linking it to the router to see if the get the promise
+  * https://learn.zybooks.com/zybook/OREGONSTATECS290CoffmanSpring2023/chapter/9/section/10
+  */
+ async function Geographyquestions() {
+    //var question = document.getElementById('question').textContent = question.question;
+    const category = 'geography';
+    // sending a get request to the JSON file.
+    const response = await fetch('http://localhost:3000/api/geography');
+    // if its unable to fetch the response from the file
+    if (!response.ok) {
+       
+       console.error("Error fetching the json file");
+       //}
+       // Reset the form after adding the song
+      // document.querySelector("form").reset();
+      return;
+    }
+    questiondata = await response.json();
+    
+     document.getElementById('userquestion').textContent = questiondata.question;
+    const answersloadedonscreen =document.getElementById('answers');
+    document.getElementById('useranswer').style.display = 'block';
+    document.getElementById('submitanswerBtn').style.display = 'block';
+    // this is helping to remove the previous answers fromt the page so new ones are loaded onto the screen. 
+    while (answersloadedonscreen.firstChild){
+        answersloadedonscreen.removeChild(answersloadedonscreen.firstChild);
+    }
+    questiondata.answers.forEach(answers => {
+        const li = document.createElement('li');
+        li.textContent = answers;
+        answersloadedonscreen.appendChild(li);
+    });
+
+}
+Geographyquestions();
+async function Musicquestions() {
+    //var question = document.getElementById('question').textContent = question.question;
+    const category = 'music';
+    // sending a get request to the JSON file.
+    const response = await fetch('http://localhost:3000/api/music');
+    // if its unable to fetch the response from the file
+    if (!response.ok) {
+       
+       console.error("Error fetching the json file");
+       //}
+       // Reset the form after adding the song
+      // document.querySelector("form").reset();
+      return;
+    }
+    questiondata = await response.json();
+    
+     document.getElementById('userquestion').textContent = questiondata.question;
+    const answersloadedonscreen =document.getElementById('answers');
+    document.getElementById('useranswer').style.display = 'block';
+    document.getElementById('submitanswerBtn').style.display = 'block';
+    // this is helping to remove the previous answers fromt the page so new ones are loaded onto the screen. 
+    while (answersloadedonscreen.firstChild){
+        answersloadedonscreen.removeChild(answersloadedonscreen.firstChild);
+    }
+    questiondata.answers.forEach(answers => {
+        const li = document.createElement('li');
+        li.textContent = answers;
+        answersloadedonscreen.appendChild(li);
+    });
+
+}
+Musicquestions();
+
+async function Historyquestions() {
+    //var question = document.getElementById('question').textContent = question.question;
+    const category = 'history';
+    // sending a get request to the JSON file.
+    const response = await fetch('http://localhost:3000/api/history');
+    // if its unable to fetch the response from the file
+    if (!response.ok) {
+       
+       console.error("Error fetching the json file");
+       //}
+       // Reset the form after adding the song
+      // document.querySelector("form").reset();
+      return;
+    }
+    questiondata = await response.json();
+    
+     document.getElementById('userquestion').textContent = questiondata.question;
+    const answersloadedonscreen =document.getElementById('answers');
+    document.getElementById('useranswer').style.display = 'block';
+    document.getElementById('submitanswerBtn').style.display = 'block';
+    // this is helping to remove the previous answers fromt the page so new ones are loaded onto the screen. 
+    while (answersloadedonscreen.firstChild){
+        answersloadedonscreen.removeChild(answersloadedonscreen.firstChild);
+    }
+    questiondata.answers.forEach(answers => {
+        const li = document.createElement('li');
+        li.textContent = answers;
+        answersloadedonscreen.appendChild(li);
+    });
+
+}
+Historyquestions();
+
+
+
+async function Moviequestions() {
+    //var question = document.getElementById('question').textContent = question.question;
+    const category = 'movies';
+    // sending a get request to the JSON file.
+    const response = await fetch('http://localhost:3000/api/movies');
+    // if its unable to fetch the response from the file
+    if (!response.ok) {
+       
+       console.error("Error fetching the json file");
+       //}
+       // Reset the form after adding the song
+      // document.querySelector("form").reset();
+      return;
+    }
+    questiondata = await response.json();
+    
+     document.getElementById('userquestion').textContent = questiondata.question;
+    const answersloadedonscreen =document.getElementById('answers');
+    document.getElementById('useranswer').style.display = 'block';
+    document.getElementById('submitanswerBtn').style.display = 'block';
+    // this is helping to remove the previous answers fromt the page so new ones are loaded onto the screen. 
+    while (answersloadedonscreen.firstChild){
+        answersloadedonscreen.removeChild(answersloadedonscreen.firstChild);
+    }
+    questiondata.answers.forEach(answers => {
+        const li = document.createElement('li');
+        li.textContent = answers;
+        answersloadedonscreen.appendChild(li);
+    });
+
+}
+Moviequestions();
+
+
+
+ function submitanswer(){
+    var useranswer = document.getElementById('useranswer').value;
+    console.log("User anser is:",useranswer);
+     var correctAnswer=  questiondata.answer;
+     document.getElementById('correctAnswer').textContent = "The correct answer is: " + correctAnswer;
+ }
+
+
+ </script>
+</body>
+</html>
