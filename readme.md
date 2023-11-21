@@ -23,3 +23,5 @@ Always restart the server incase you change anything
 Try one function at a time
 Uml diagram
 https://docs.google.com/document/d/1Aqvj_7sbVdBZNUxMWHHHFcxhlw-Cnv9d3NlMLxGI8yM/edit
+
+[uml.pdf](https://github.com/nansikom/micros/files/13422428/uml.pdf)
